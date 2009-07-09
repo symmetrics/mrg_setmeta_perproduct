@@ -6,7 +6,7 @@
 # =============================================================================
 NAME = 'symmetrics_module_setmeta_perproduct'
 
-TAGS = ()
+TAGS = ('symmetrics','module','meta','product','javascript')
 
 LICENSE = 'AFL 3.0'
 
@@ -19,29 +19,29 @@ INSTALL_PATH = ''
 # responsibilities
 # =============================================================================
 TEAM_LEADER = {
-    '[firstname] [lastname]': '[email]'
+    'Sergej Braznikov': 'sb@symmetrics.de'
 }
 
 MAINTAINER = {
-    '[firstname] [lastname]': '[email]'
+    'Eric Reiche': 'er@symmetrics.de'
 }
 
 AUTHORS = {
-    '[firstname] [lastname]': '[email]',
+    'Eric Reiche': 'er@symmetrics.de'
 }
 
 # =============================================================================
 # additional infos
 # =============================================================================
-INFO = '[short description, max 60 chars]'
+INFO = 'Meta Informationen mit Produkt-Info fuellen'
 
 SUMMARY = '''
-    [long description
-    with multiple lines]
+Dieses Modul soll mithilfe von Javascript die Meta Informationen eines Produktes mit 
+den Informationen der Kategorie und des Produktnamens füllen.
+Feature #1827
 '''
 
 NOTES = '''
-    [special notes, restrictions, bugs etc.]
 '''
 
 # =============================================================================
@@ -57,13 +57,10 @@ VIRTUAL = {
 }
 
 DEPENDS_ON_FILES = (
-    'app/code/core/.../1.php',
-    'app/code/core/.../2.php',
-    'app/code/core/.../3.php',
 )
 
 PEAR_KEY = ''
 
 COMPATIBLE_WITH = {
-    # 'magento': ['1.3.2', '1.3.2.1', ...],
+     'magento': ['1.3.2.1'],
 }
