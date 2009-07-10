@@ -1,6 +1,14 @@
 <?php
+/**
+ * @category Symmetrics
+ * @package Symmetrics_SetMeta
+ * @author symmetrics gmbh <info@symmetrics.de>, Eric Reiche <er@symmetrics.de>
+ * @copyright symmetrics gmbh
+ * @license http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class Symmetrics_SetMeta_Block_Catalog_Product_Edit  extends Mage_Adminhtml_Block_Catalog_Product_Edit
 {
+
     protected function _prepareLayout()
     {
         if (!$this->getRequest()->getParam('popup')) {
@@ -36,7 +44,7 @@ class Symmetrics_SetMeta_Block_Catalog_Product_Edit  extends Mage_Adminhtml_Bloc
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Save'),
-                        'onclick'   => 'getCategories(\''.Mage::getBaseUrl().'\',\''.$this->getProduct()->getId().'\');productForm.submit()',
+                        'onclick'   => 'getCategories(\''.Mage::getBaseUrl().'\', \''.$this->getProduct()->getId().'\', 1, 0)', // productForm.submit()
                         'class' => 'save'
                     ))
             );
@@ -48,7 +56,7 @@ class Symmetrics_SetMeta_Block_Catalog_Product_Edit  extends Mage_Adminhtml_Bloc
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData(array(
                             'label'     => Mage::helper('catalog')->__('Save And Continue Edit'),
-                            'onclick'   => 'getCategories(\''.Mage::getBaseUrl().'\',\''.$this->getProduct()->getId().'\');saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
+                            'onclick'   => 'getCategories(\''.Mage::getBaseUrl().'\', \''.$this->getProduct()->getId().'\', 2, \''.$this->getSaveAndContinueUrl().'\')', //'saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
                             'class' => 'save'
                         ))
                 );
