@@ -48,6 +48,7 @@ NOTES = '''
 # relations
 # =============================================================================
 REQUIRES = {
+    'magento': '*'
 }
 
 EXCLUDES = {
@@ -57,6 +58,9 @@ VIRTUAL = {
 }
 
 DEPENDS_ON_FILES = (
+     'app/code/core/Mage/Adminhtml/Controller/Action.php',
+     'lib/Varien/Object.php',
+     'app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php'
 )
 
 PEAR_KEY = ''
