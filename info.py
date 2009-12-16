@@ -6,7 +6,7 @@
 # =============================================================================
 NAME = 'symmetrics_module_setmeta_perproduct'
 
-TAGS = ('symmetrics','module','meta','product','javascript')
+TAGS = ('php', 'magento', 'symmetrics','module','meta','product','javascript')
 
 LICENSE = 'AFL 3.0'
 
@@ -47,15 +47,13 @@ NOTES = '''
 # =============================================================================
 # relations
 # =============================================================================
-REQUIRES = {
-    'magento': '*'
-}
+REQUIRES = [
+    {'magento': '*', 'magento_enterprise': '*'}, 
+]
 
-EXCLUDES = {
-}
+EXCLUDES = {}
 
-VIRTUAL = {
-}
+VIRTUAL = {}
 
 DEPENDS_ON_FILES = (
      'app/code/core/Mage/Adminhtml/Controller/Action.php',

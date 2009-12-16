@@ -1,6 +1,44 @@
 <?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category  Symmetrics
+ * @package   Symmetrics_SetMeta
+ * @author    Symmetrics GmbH <info@symmetrics.de>
+ * @author    Eric Reiche <er@symmetrics.de>
+ * @copyright 2009 Symmetrics GmbH
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.symmetrics.de/
+ */
+/**
+ * This class is overwritten to modify the javascript routine for saving a product
+ * it isnt very clean written, mostly due to copy & paste from the magento core
+ *
+ * @category  Symmetrics
+ * @package   Symmetrics_SetMeta
+ * @author    Symmetrics GmbH <info@symmetrics.de>
+ * @author    Eric Reiche <er@symmetrics.de>
+ * @copyright 2009 Symmetrics GmbH
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.symmetrics.de/
+ */
 class Symmetrics_SetMeta_Block_Catalog_Product_Edit  extends Mage_Adminhtml_Block_Catalog_Product_Edit
 {
+    /**
+     * modify the change button to execute own javasacript function
+     *
+     * @return Symmetrics_SetMeta_Block_Catalog_Product_Edit
+     */
     protected function _prepareLayout()
     {
         if (!$this->getRequest()->getParam('popup')) {

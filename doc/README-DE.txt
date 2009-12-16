@@ -26,10 +26,3 @@ Wenn sich Produktname oder Kategorien ändern, werden die Meta Informationen nich
 	3. Geben Sie wenigstens die benötigten Attribute und eine Kategorie an
 	4. Wählen Sie "Save & Continue Edit".
 	5. Die Meta-Felder sollten nun mir den Kategorie und Namensinformationen gefüllt werden.
-
-** CATCHABLE
-*** A:  ???
-
-
-** STRESS
-*** A:	unknown
