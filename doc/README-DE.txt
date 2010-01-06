@@ -22,7 +22,7 @@ Wenn sich Produktname oder Kategorien ändern, werden die Meta Informationen nich
 
 ** BASIC
 *** A:	1. Installieren Sie das Modul.
-	2. Legen Sie im Backend über Catalog->Add Product ein neues Produkt an.
-	3. Geben Sie wenigstens die benötigten Attribute und eine Kategorie an
-	4. Wählen Sie "Save & Continue Edit".
-	5. Die Meta-Felder sollten nun mir den Kategorie und Namensinformationen gefüllt werden.
+	    2. Legen Sie im Backend über Catalog->Add Product ein neues Produkt an.
+	    3. Geben Sie wenigstens die benötigten Attribute und eine Kategorie an
+	    4. Wählen Sie "Save & Continue Edit".
+	    5. Die Meta-Felder sollten nun mir den Kategorie und Namensinformationen gefüllt werden.
