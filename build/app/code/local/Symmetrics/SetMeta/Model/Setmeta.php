@@ -55,8 +55,11 @@ class Symmetrics_SetMeta_Model_SetMeta extends Varien_Object
         $this->_product = Mage::getModel('catalog/product')
             ->setStoreId($storeId)
             ->load($productId);
-        $categories = $this->_product->getCategoryIds(); 
-        return $categories;
+        $categories = $this->_product->getCategoryIds();
+        foreach ($categories as $categoryId) {
+            $categoryArray[] = $this->_getCategoryName($categoryId);
+        }        
+        return $categoryArray;
     }
     
     /**
