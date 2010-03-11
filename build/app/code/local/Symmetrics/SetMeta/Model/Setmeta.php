@@ -58,7 +58,7 @@ class Symmetrics_SetMeta_Model_SetMeta extends Varien_Object
         $categories = $this->_product->getCategoryIds();
         foreach ($categories as $categoryId) {
             $categoryArray[] = $this->_getCategoryName($categoryId);
-        }        
+        }
         return $categoryArray;
     }
     
