@@ -20,6 +20,7 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
+
 /**
  * This class is overwritten to modify the javascript routine for saving a product
  * it isnt very clean written, mostly due to copy & paste from the magento core
@@ -74,7 +75,7 @@ class Symmetrics_SetMeta_Block_Catalog_Product_Edit  extends Mage_Adminhtml_Bloc
                 $this->getLayout()->createBlock('adminhtml/widget_button')
                     ->setData(array(
                         'label'     => Mage::helper('catalog')->__('Save'),
-                        'onclick'   => 'getCategories(\''.Mage::getBaseUrl().'\',\''.$this->getProduct()->getId().'\');productForm.submit()',
+                        'onclick'   => 'getCategories(\''.$this->getProduct()->getId().'\'); productForm.submit()',
                         'class' => 'save'
                     ))
             );
@@ -86,7 +87,7 @@ class Symmetrics_SetMeta_Block_Catalog_Product_Edit  extends Mage_Adminhtml_Bloc
                     $this->getLayout()->createBlock('adminhtml/widget_button')
                         ->setData(array(
                             'label'     => Mage::helper('catalog')->__('Save And Continue Edit'),
-                            'onclick'   => 'getCategories(\''.Mage::getBaseUrl().'\',\''.$this->getProduct()->getId().'\');saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
+                            'onclick'   => 'getCategories(\''.$this->getProduct()->getId().'\'); saveAndContinueEdit(\''.$this->getSaveAndContinueUrl().'\')',
                             'class' => 'save'
                         ))
                 );
@@ -113,7 +114,6 @@ class Symmetrics_SetMeta_Block_Catalog_Product_Edit  extends Mage_Adminhtml_Bloc
                 );
             }
         }
-
         return Mage_Adminhtml_Block_Widget::_prepareLayout();
     }
 }

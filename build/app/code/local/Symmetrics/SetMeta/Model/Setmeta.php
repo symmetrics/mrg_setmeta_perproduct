@@ -16,7 +16,7 @@
  * @package   Symmetrics_SetMeta
  * @author    Symmetrics GmbH <info@symmetrics.de>
  * @author    Eric Reiche <er@symmetrics.de>
- * @copyright 2009 Symmetrics GmbH
+ * @copyright 2010 Symmetrics GmbH
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -27,7 +27,7 @@
  * @package   Symmetrics_SetMeta
  * @author    Symmetrics GmbH <info@symmetrics.de>
  * @author    Eric Reiche <er@symmetrics.de>
- * @copyright 2009 Symmetrics GmbH
+ * @copyright 2010 Symmetrics GmbH
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -50,16 +50,13 @@ class Symmetrics_SetMeta_Model_SetMeta extends Varien_Object
      */
     public function getCategories($productId)
     {
-        $storeId = Mage::app()->getStore()->getId();
+        Mage::log($productId);
+        $storeId = Mage::app()->getRequest()->getParam('store');
         $this->_product = Mage::getModel('catalog/product')
             ->setStoreId($storeId)
             ->load($productId);
-        $categories = $this->_product->getCategory_ids();
-        $categories = explode(',', $categories);
-        foreach ($categories as $categoryId) {
-            $categoryArray[] = $this->_getCategoryName($categoryId);
-        }        
-        return $categoryArray;
+        $categories = $this->_product->getCategoryIds(); 
+        return $categories;
     }
     
     /**
@@ -71,7 +68,7 @@ class Symmetrics_SetMeta_Model_SetMeta extends Varien_Object
      */
     protected function _getCategoryName($categoryId)
     {
-        $storeId = Mage::app()->getStore()->getId();
+        $storeId = Mage::app()->getRequest()->getParam('store');
         $categoryObject = Mage::getModel('catalog/category')
             ->setStoreId($storeId)
             ->load($categoryId);

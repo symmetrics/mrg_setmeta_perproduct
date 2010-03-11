@@ -6,7 +6,7 @@
 # =============================================================================
 NAME = 'symmetrics_module_setmeta_perproduct'
 
-TAGS = ('php', 'magento', 'symmetrics','module','meta','product','javascript')
+TAGS = ('php', 'magento', 'symmetrics', 'module', 'meta', 'product', 'javascript')
 
 LICENSE = 'AFL 3.0'
 
@@ -48,7 +48,7 @@ NOTES = '''
 # relations
 # =============================================================================
 REQUIRES = [
-    {'magento': '*', 'magento_enterprise': '*'}, 
+    {'magento': '*', 'magento_enterprise': '*'}
 ]
 
 EXCLUDES = {}
@@ -63,4 +63,5 @@ PEAR_KEY = ''
 
 COMPATIBLE_WITH = {
     'magento': ['1.3.2.1', '1.3.2.3'],
+    'magento_enterprise': ['1.7.0.0', '1.7.0.1'],
 }
