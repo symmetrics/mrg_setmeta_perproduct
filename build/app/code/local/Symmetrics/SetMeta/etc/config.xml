@@ -40,10 +40,19 @@
                     <symmetrics_setmeta_model_observer>
                         <type>singleton</type>
                         <class>Symmetrics_SetMeta_Model_Observer</class>
-                        <method>generateMetaData</method>
+                        <method>edit</method>
                     </symmetrics_setmeta_model_observer>
                 </observers>
             </catalog_product_save_after>
+            <controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
+                <observers>
+                    <symmetrics_setmeta_model_observer>
+                        <type>singleton</type>
+                        <class>Symmetrics_SetMeta_Model_Observer</class>
+                        <method>massEdit</method>
+                    </symmetrics_setmeta_model_observer>
+                </observers>
+            </controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
         </events>
         <resources>
             <setmeta_setup>

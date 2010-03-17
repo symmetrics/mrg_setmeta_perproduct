@@ -33,7 +33,29 @@
  * @link      http://www.symmetrics.de/
  */
 class Symmetrics_SetMeta_Model_Observer extends Varien_Object
-{    
+{
+    public function massEdit($observer)
+    {
+        $productsIds = Mage::getSingleton('adminhtml/session')->getProductIds();
+        $request = Mage::app()->getRequest();
+        $storeId = $request->getParam('store');
+        $attributesData = $request->getParam('attributes');
+        if (isset($attributesData['generate_meta']) && $attributesData['generate_meta'] == 1) {
+            if(!is_array($productsIds)) {
+                $productsIds = array(0);
+            }
+        
+            $products = Mage::getResourceModel('catalog/product_collection')
+                ->setStoreId($storeId)
+                ->addIdFilter($productsIds)
+                ->load();
+            foreach ($products as $product) {
+                $product->load($product->getId());
+                $this->generateMetaData($product, $storeId);
+            }
+        }
+    }
+    
     /**
      * product is saved - update meta tags
      * 
@@ -41,32 +63,37 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
      * 
      * @return void
      */
-    public function generateMetaData($observer)
+    public function edit($observer)
     {
-        $productId = ($observer->getEvent()->getProduct()->getId());
-        
         $storeId = Mage::app()->getRequest()->getParam('store');
-        $product = Mage::getModel('catalog/product')
-            ->setStoreId($storeId)
-            ->load($productId);
-        
-            // if checkbox for generation is set
-        if ($product && $product->getGenerateMeta() == 1) {
-            $categories = $product->getCategoryIds();
-            // load category names
-            foreach ($categories as $categoryId) {
-                $categoryArray[] = $this->_getCategoryName($categoryId);
-            }
-            $productName = $product->getName();
-            // prepend product name
-            array_unshift($categoryArray, $productName);
-            $metaContent = implode(', ', $categoryArray);
-            $product->setMetaKeyword($metaContent)
-                ->setMetaTitle($productName)
-                ->setMetaDescription($metaContent)
-                ->setGenerateMeta(0);
-            $product->save();
+        $product = $observer->getEvent()->getProduct();
+        $product->load($product->getId());
+        if ($product->getGenerateMeta() == 1) {
+            $this->generateMetaData($product, $storeId);
         }
+    }
+    
+    public function generateMetaData($product, $storeId)
+    {
+        if (!$product instanceof Mage_Catalog_Model_Product) {
+            throw new Exception('product couldnt be loaded.');
+        }
+        $productId = $product->getId();
+        
+        $categories = $product->getCategoryIds();
+        // load category names
+        foreach ($categories as $categoryId) {
+            $categoryArray[] = $this->_getCategoryName($categoryId);
+        }
+        $productName = $product->getName();
+        // prepend product name
+        array_unshift($categoryArray, $productName);
+        $metaContent = implode(', ', $categoryArray);
+        $product->setMetaKeyword($metaContent)
+            ->setMetaTitle($productName)
+            ->setMetaDescription($metaContent)
+            ->setGenerateMeta(0);
+        $product->save();
     }    
     
     /**
