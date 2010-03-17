@@ -25,31 +25,26 @@
 <config>
     <modules>
         <Symmetrics_SetMeta>
-            <version>0.1.3</version>
+            <version>0.2.0</version>
         </Symmetrics_SetMeta>
-    </modules>
-    <adminhtml>
-        <layout>
-            <updates>
-                <setmeta>
-                    <file>setmeta.xml</file>
-                </setmeta>
-            </updates>
-        </layout>
-    </adminhtml>   
+    </modules>    
     <global>
-        <blocks>
-            <adminhtml>
-                <rewrite>
-                    <catalog_product_edit>Symmetrics_SetMeta_Block_Catalog_Product_Edit</catalog_product_edit>
-                </rewrite>
-            </adminhtml>
-        </blocks>
         <models>
             <setmeta>
                 <class>Symmetrics_SetMeta_Model</class>
             </setmeta>
         </models>
+        <events>
+            <catalog_product_save_after>
+                <observers>
+                    <symmetrics_setmeta_model_observer>
+                        <type>singleton</type>
+                        <class>Symmetrics_SetMeta_Model_Observer</class>
+                        <method>generateMetaData</method>
+                    </symmetrics_setmeta_model_observer>
+                </observers>
+            </catalog_product_save_after>
+        </events>
         <resources>
             <setmeta_setup>
                 <setup>
@@ -62,15 +57,4 @@
             </setmeta_setup>
         </resources>
     </global>
-    <admin>
-        <routers>
-            <adminhtml>
-                <args>
-                    <modules>
-                        <Symmetrics_SetMeta_Admin before="Mage_Adminhtml">Symmetrics_SetMeta_Admin</Symmetrics_SetMeta_Admin>
-                    </modules>
-                </args>
-            </adminhtml>
-        </routers>
-    </admin>
 </config>

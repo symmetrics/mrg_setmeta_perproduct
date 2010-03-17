@@ -20,6 +20,7 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
+
 /**
  * This model returns the categories (description) of a specific product.
  *
@@ -31,36 +32,42 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
-class Symmetrics_SetMeta_Model_SetMeta extends Varien_Object
-{
+class Symmetrics_SetMeta_Model_Observer extends Varien_Object
+{    
     /**
-     * Contains the product model object
-     *
-     * @var Mage_Catalog_Model_Product
+     * product is saved - update meta tags
+     * 
+     * @param Varien_Event_Observer $observer event observer object
+     * 
+     * @return void
      */
-    protected $_product;
-    
-    /**
-     * returns the categories of the product
-     *
-     * @param int $productId ID of the product
-     *                       for which the categories shall be loaded
-     *
-     * @return array
-     */
-    public function getCategories($productId)
+    public function generateMetaData($observer)
     {
-        Mage::log($productId);
+        $productId = ($observer->getEvent()->getProduct()->getId());
+        
         $storeId = Mage::app()->getRequest()->getParam('store');
-        $this->_product = Mage::getModel('catalog/product')
+        $product = Mage::getModel('catalog/product')
             ->setStoreId($storeId)
             ->load($productId);
-        $categories = $this->_product->getCategoryIds();
-        foreach ($categories as $categoryId) {
-            $categoryArray[] = $this->_getCategoryName($categoryId);
+        
+            // if checkbox for generation is set
+        if ($product && $product->getGenerateMeta() == 1) {
+            $categories = $product->getCategoryIds();
+            // load category names
+            foreach ($categories as $categoryId) {
+                $categoryArray[] = $this->_getCategoryName($categoryId);
+            }
+            $productName = $product->getName();
+            // prepend product name
+            array_unshift($categoryArray, $productName);
+            $metaContent = implode(', ', $categoryArray);
+            $product->setMetaKeyword($metaContent)
+                ->setMetaTitle($productName)
+                ->setMetaDescription($metaContent)
+                ->setGenerateMeta(0);
+            $product->save();
         }
-        return $categoryArray;
-    }
+    }    
     
     /**
      * Gets the category name by ID
