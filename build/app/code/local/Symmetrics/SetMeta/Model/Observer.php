@@ -22,7 +22,7 @@
  */
 
 /**
- * This model returns the categories (description) of a specific product.
+ * This model generates meta data from product name and categories
  *
  * @category  Symmetrics
  * @package   Symmetrics_SetMeta
@@ -34,6 +34,13 @@
  */
 class Symmetrics_SetMeta_Model_Observer extends Varien_Object
 {
+    /**
+     * Is called for mass editing products
+     * 
+     * @param Varien_Event_Observer $observer event observer object
+     * 
+     * @return void
+     */
     public function massEdit($observer)
     {
         $productsIds = Mage::getSingleton('adminhtml/session')->getProductIds();
@@ -71,6 +78,14 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         }
     }
     
+    /**
+     * load product and generate meta data
+     * 
+     * @param int $productId Product Id
+     * @param int $storeId   Store Id
+     * 
+     * @return void
+     */
     public function generateMetaData($productId, $storeId)
     {
         $product = Mage::getModel('catalog/product')

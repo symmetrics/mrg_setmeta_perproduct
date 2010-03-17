@@ -56,7 +56,6 @@ if ($attribute->getId()) {
     $attribute->setIsGlobal($data['is_global']);
     try {
         $attribute->save();
-        Mage::log('Attribute ' . $code . ' was created and modified for translation');
     } catch (Exception $e) {
         Mage::log($e->getMessage());
     }
