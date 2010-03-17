@@ -71,8 +71,19 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
      */
     public function edit($observer)
     {
+        $request = Mage::app()->getRequest();
         $storeId = Mage::app()->getRequest()->getParam('store');
         $product = $observer->getEvent()->getProduct();
+        
+        if (!$product instanceof Mage_Catalog_Model_Product || !$product->getId()) {
+            throw new Exception('product not set');
+        } else {
+            $productParams = $request->getParam('product');
+            if (isset($productParams['sku'])) {
+                $product = Mage::getModel('catalog/product');
+                $product->load($product->getIdBySku($productParams['sku']));
+            }
+        }
         if ($product->getGenerateMeta() == 1) {
             $this->generateMetaData($product->getId(), $storeId);
         }
@@ -88,16 +99,21 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
      */
     public function generateMetaData($productId, $storeId)
     {
-        $product = Mage::getModel('catalog/product')
-            ->setStoreId($storeId)
-            ->load($productId);
+        if (is_numeric($productId)) {
+            $product = Mage::getModel('catalog/product')
+                ->setStoreId($storeId)
+                ->load($productId);
+        } else {
+            $product = $productId;
+        }
         if (!$product instanceof Mage_Catalog_Model_Product || !$product->getId()) {
-            throw new Exception('product couldnt be loaded.');
+            throw new Exception('product couldn\'t be loaded.');
         }
         $productId = $product->getId();
         
         $categories = $product->getCategoryIds();
         // load category names
+        $categoryArray = array();
         foreach ($categories as $categoryId) {
             $categoryArray[] = $this->_getCategoryName($categoryId);
         }
