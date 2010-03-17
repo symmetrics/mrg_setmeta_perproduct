@@ -2,7 +2,7 @@
 
 ** INSTALLATION
 Extrahieren Sie den Inhalt dieses Archivs in Ihr Magento Verzeichnis.
-! Das Attribut 'generate_meta' muss dem Attributset hinzugefügt werden. !
+! Das Attribut 'generate_meta' muss dem/einem Attributset hinzugefügt werden. !
 
 ** USAGE
 Dieses Modul füllt die Meta-Daten eines Produktes automatisch mit dem Produktnamen und den Kategorien.
@@ -46,5 +46,5 @@ gestellt wurde. Dann wird für jede ID das Produkt-Model geladen und die Werte ge
 *** D:  1. Wiederholen Sie die Testcases B+C aber wählen einen store-scope aus.
 	    
 ** STRESS
-Die Produkte müssen bei einer Mass Action alle einzeln geladen werde. Dies kann sich negativ auf die performance auswirken.
+Die Produkte müssen bei einer Mass Action alle einzeln geladen werde. Dies kann sich negativ auf die Performance auswirken.
 Wenn das Drop-Down "Generate Meta Data" nicht auf "ja" steht, werden die Produkte aber nicht einzeln geladen.
