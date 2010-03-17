@@ -50,8 +50,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
                 ->addIdFilter($productsIds)
                 ->load();
             foreach ($products as $product) {
-                $product->load($product->getId());
-                $this->generateMetaData($product, $storeId);
+                $this->generateMetaData($product->getId(), $storeId);
             }
         }
     }
@@ -67,15 +66,17 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
     {
         $storeId = Mage::app()->getRequest()->getParam('store');
         $product = $observer->getEvent()->getProduct();
-        $product->load($product->getId());
         if ($product->getGenerateMeta() == 1) {
-            $this->generateMetaData($product, $storeId);
+            $this->generateMetaData($product->getId(), $storeId);
         }
     }
     
-    public function generateMetaData($product, $storeId)
+    public function generateMetaData($productId, $storeId)
     {
-        if (!$product instanceof Mage_Catalog_Model_Product) {
+        $product = Mage::getModel('catalog/product')
+            ->setStoreId($storeId)
+            ->load($productId);
+        if (!$product instanceof Mage_Catalog_Model_Product || !$product->getId()) {
             throw new Exception('product couldnt be loaded.');
         }
         $productId = $product->getId();
@@ -94,7 +95,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
             ->setMetaDescription($metaContent)
             ->setGenerateMeta(0);
         $product->save();
-    }    
+    }
     
     /**
      * Gets the category name by ID
