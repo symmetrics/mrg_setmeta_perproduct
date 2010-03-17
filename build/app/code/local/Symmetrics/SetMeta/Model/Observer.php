@@ -48,7 +48,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         $storeId = $request->getParam('store');
         $attributesData = $request->getParam('attributes');
         if (isset($attributesData['generate_meta']) && $attributesData['generate_meta'] == 1) {
-            if(!is_array($productsIds)) {
+            if (!is_array($productsIds)) {
                 $productsIds = array(0);
             }
         
