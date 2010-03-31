@@ -29,6 +29,8 @@ gestellt wurde. Dann wird für jede ID das Produkt-Model geladen und die Werte ge
 * TESTCASES
 
 ** BASIC
+*** 0: Prüfen Sie, ob das vom Migrationsskript angelegte Attribut 'generate_meta' im Attributset vorhanden ist.
+        Es sollte dann auftauchen, wenn man das Produkt bearbeitet.
 *** A: Prüfen Sie, ob in der Attributverwaltung das Attribut 'generate_meta' auftaucht.
 *** B:	1. Legen Sie im Backend über Catalog->Add Product ein neues Produkt an.
 	    2. Geben Sie wenigstens die benötigten Attribute und eine Kategorie an
