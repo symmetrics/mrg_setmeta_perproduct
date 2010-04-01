@@ -19,7 +19,8 @@ INSTALL_PATH = ''
 # responsibilities
 # =============================================================================
 TEAM_LEADER = {
-    'Sergej Braznikov': 'sb@symmetrics.de'
+    'Sergej Braznikov': 'sb@symmetrics.de',
+    'Torsten Walluhn': 'tw@symmetrics.de'
 }
 
 MAINTAINER = {
@@ -55,13 +56,11 @@ EXCLUDES = {}
 
 VIRTUAL = {}
 
-DEPENDS_ON_FILES = (
-     'app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php'
-)
+DEPENDS_ON_FILES = ()
 
 PEAR_KEY = ''
 
 COMPATIBLE_WITH = {
     'magento': ['1.4.0.0'],
-    'magento_enterprise': ['1.7.0.0', '1.7.0.1'],
+    'magento_enterprise': ['1.7.0.0', '1.7.1.0'],
 }
