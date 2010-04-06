@@ -72,7 +72,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
     public function edit($observer)
     {
         $request = Mage::app()->getRequest();
-        $storeId = Mage::app()->getRequest()->getParam('store');
+        $storeId = $request->getParam('store');
         $product = $observer->getEvent()->getProduct();
         
         if (!$product instanceof Mage_Catalog_Model_Product || !$product->getId()) {
@@ -80,7 +80,8 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         } else {
             $productParams = $request->getParam('product');
             if (isset($productParams['sku'])) {
-                $product = Mage::getModel('catalog/product');
+                $product = Mage::getModel('catalog/product')
+                    ->setStoreId($storeId);
                 $product->load($product->getIdBySku($productParams['sku']));
             }
         }
