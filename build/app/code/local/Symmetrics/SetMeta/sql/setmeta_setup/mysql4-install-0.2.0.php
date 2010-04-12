@@ -16,6 +16,7 @@
  * @package   Symmetrics_SetMeta
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Eric Reiche <er@symmetrics.de>
+ * @author    Torsten Walluhn <tw@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -51,9 +52,11 @@ $installer->addAttribute($attributeType, $code, $data);
 
 $attribute = Mage::getModel('catalog/resource_eav_attribute');
 $attribute->loadByCode($attributeType, $code);
+
 if ($attribute->getId()) {
     $attribute->setDefaultValue($data['default_value']);
     $attribute->setIsGlobal($data['is_global']);
+    
     try {
         $attribute->save();
     } catch (Exception $e) {
