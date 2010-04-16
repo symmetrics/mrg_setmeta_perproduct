@@ -67,4 +67,15 @@
             </setmeta_setup>
         </resources>
     </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Symmetrics_SetMeta>
+                    <files>
+                        <default>Symmetrics_SetMeta.csv</default>
+                    </files>
+                </Symmetrics_SetMeta>
+            </modules>
+        </translate>
+    </adminhtml>
 </config>
