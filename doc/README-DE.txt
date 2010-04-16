@@ -3,6 +3,7 @@
 ** INSTALLATION
 Extrahieren Sie den Inhalt dieses Archivs in Ihr Magento Verzeichnis.
 ! Das Attribut 'generate_meta' muss dem/einem Attributset hinzugefügt werden. !
+Außerdem muss es manuell in der Attributverwaltung übersetzt werden.
 
 ** USAGE
 Dieses Modul füllt die Meta-Daten eines Produktes automatisch mit dem Produktnamen und den Kategorien.
