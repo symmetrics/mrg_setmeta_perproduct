@@ -20,7 +20,7 @@ Produktnamen und den Kategorien.
 *** D: Auch Multistore Umgebungen werden berücksichtigt. Die Kategorie- und 
         Produktnamen werden dann entsprechend dem store view eingetragen.
 
-** TECHNINCAL
+** TECHNICAL
 Via Migrationsskript wird ein Produktattribut 'generate_meta' eingefügt. Es 
 ist ein Ja/Nein Drop-Down. Es wird das Event 'catalog_product_save_after' 
 abgefangen, welches bei einer einfachen Produktspeicherung ausgelöst wird. 
@@ -33,6 +33,7 @@ ob das 'generate_meta' Drop-Down auf "Ja" gestellt wurde. Dann wird für jede
 ID das Produkt-Model geladen und die Werte gefüllt und gespeichert.
 
 ** PROBLEMS
+Zur Zeit sind keine Probleme bekannt.
 
 * TESTCASES
 
