@@ -41,7 +41,7 @@
                     <symmetrics_setmeta_model_observer>
                         <type>singleton</type>
                         <class>Symmetrics_SetMeta_Model_Observer</class>
-                        <method>edit</method>
+                        <method>handleProductSaveAfter</method>
                     </symmetrics_setmeta_model_observer>
                 </observers>
             </catalog_product_save_after>
@@ -50,7 +50,7 @@
                     <symmetrics_setmeta_model_observer>
                         <type>singleton</type>
                         <class>Symmetrics_SetMeta_Model_Observer</class>
-                        <method>massEdit</method>
+                        <method>handleProductMassEdit</method>
                     </symmetrics_setmeta_model_observer>
                 </observers>
             </controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>

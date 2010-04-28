@@ -23,12 +23,13 @@
  */
 
 /**
- * This model generates meta data from product name and categories
+ * This observer model generates meta data from product name and categories
  *
  * @category  Symmetrics
  * @package   Symmetrics_SetMeta
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Eric Reiche <er@symmetrics.de>
+ * @author    Yauhen Yakimovich <yy@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -36,97 +37,137 @@
 class Symmetrics_SetMeta_Model_Observer extends Varien_Object
 {
     /**
-     * Is called for mass editing products
+     * @var int $_storeId Current store id
+     */
+    private $_storeId = null;
+
+    /**
+     * Get store id from request
+     *
+     * @return string store id
+     */
+    protected function _getStoreId()
+    {
+        if ($this->_storeId == null) {
+            $request = Mage::app()->getRequest();
+            $this->_storeId = $request->getParam('store');
+        }
+
+        return $this->_storeId;
+    }
+
+    /**
+     * Get SKU from request
+     *
+     * @return string SKU
+     */
+    protected function _getSku()
+    {
+        $request = Mage::app()->getRequest();
+        if (isset($productParams['sku'])) {
+            return $productParams['sku'];
+        }
+
+        return false;
+    }
+
+    /**
+     * Update meta tags on product save
      *
      * @param Varien_Event_Observer $observer event observer object
      *
      * @return void
      */
-    public function massEdit($observer)
+    public function handleProductSaveAfter($observer)
     {
-        $productsIds = Mage::getSingleton('adminhtml/session')->getProductIds();
-        $request = Mage::app()->getRequest();
-        $storeId = $request->getParam('store');
-        $attributesData = $request->getParam('attributes');
+        // take product instance from event argument
+        $product = $observer->getEvent()->getProduct();
 
-        if (isset($attributesData['generate_meta']) && $attributesData['generate_meta'] == 1) {
-            if (!is_array($productsIds)) {
-                $productsIds = array(0);
-            }
+        // assert product instance and type
+        if (!$product instanceof Mage_Catalog_Model_Product || !$product->getId()) {
+            throw new Exception('product not set');
+        }
 
-            $products = Mage::getResourceModel('catalog/product_collection')
-                ->setStoreId($storeId)
-                ->addIdFilter($productsIds)
-                ->load();
+        // have SKU in request?
+        if ($this->_getSku() !== false) {
+            // load product by SKU and store ID from request data
+            $product = $this->_loadProduct();
+        }
+        // otherwise just use the product we obtained as event argument
 
-            foreach ($products as $product) {
-                $this->_generateMetaData($product->getId(), $storeId);
-            }
+        // if we need to generate meta content, do so and update the product
+        if ($product->getGenerateMeta() == 1) {
+            $this->_updateMetaData($product);
         }
     }
 
     /**
-     * Product is saved - update meta tags
+     * Is called for mass editing of products
      *
      * @param Varien_Event_Observer $observer event observer object
      *
      * @return void
      */
-    public function edit($observer)
+    public function handleProductMassEdit($observer)
     {
-        $request = Mage::app()->getRequest();
-        $storeId = $request->getParam('store');
-        $product = $observer->getEvent()->getProduct();
+        // take product id list from session
+        $productsIds = Mage::getSingleton('adminhtml/session')->getProductIds();
 
-        if (!$product instanceof Mage_Catalog_Model_Product || !$product->getId()) {
-            throw new Exception('product not set');
-        } else {
-            $productParams = $request->getParam('product');
-            if (isset($productParams['sku'])) {
-                $product = Mage::getModel('catalog/product')
-                    ->setStoreId($storeId);
-                $product->load($product->getIdBySku($productParams['sku']));
-            }
+        // ignore non-array values
+        if (!is_array($productsIds)) {
+            return;
         }
-        if ($product->getGenerateMeta() == 1) {
-            $this->_generateMetaData($product->getId(), $storeId);
+
+        // take $attributesData from request
+        $attributesData = Mage::app()->getRequest()->getParam('attributes');
+
+        // check if we need to generate and update meta tags
+        if (!(isset($attributesData['generate_meta']) && $attributesData['generate_meta'] == 1)) {
+            return;
         }
+
+        // obtain collection of products by store id and product ids
+        $products = Mage::getResourceModel('catalog/product_collection')
+            ->setStoreId($this->_getStoreId())
+            ->addIdFilter($productsIds)
+            ->load();
+
+        // update meta data for all of them
+        foreach ($products as $product) {
+            $this->_updateMetaData($product);
+        }
+    }
+
+    /**
+     * Obtain product instance by SKU and store id
+     *
+     * @param string $sku SKU
+     *
+     * @return object product instance
+     */
+    protected function _loadProductBySku($sku)
+    {
+        // Load product by sku and storeId
+        $product = Mage::getModel('catalog/product')
+            ->setStoreId($this->_getStoreId());
+        $product->load($product->getIdBySku($productParams['sku']));
+
+        return $product;
     }
 
     /**
      * Load product, generate meta data and store it in the product
      *
-     * @param int $productId Product Id
-     * @param int $storeId   Store Id
+     * @param object $product product instance
      *
      * @return void
      */
-    protected function _generateMetaData($productId, $storeId)
+    protected function _updateMetaData($product)
     {
-        if (is_numeric($productId)) {
-            $product = Mage::getModel('catalog/product')
-                ->setStoreId($storeId)
-                ->load($productId);
-        } else {
-            $product = $productId;
-        }
-
-        if (!$product instanceof Mage_Catalog_Model_Product || !$product->getId()) {
-            throw new Exception('product couldn\'t be loaded.');
-        }
-
-        $productId = $product->getId();
-
-        $categories = $product->getCategoryIds();
-        // load category names
-        $categoryArray = array();
-
-        foreach ($categories as $categoryId) {
-            $categoryArray[] = $this->_getCategoryName($categoryId);
-        }
-
         $productName = $product->getName();
-        // prepend product name
+        $categoryArray = $this->_getCategoryNames($product);
+
+        // compute meta content by prepending product name
         array_unshift($categoryArray, $productName);
         $metaContent = implode(', ', $categoryArray);
 
@@ -134,13 +175,34 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
             ->setMetaTitle($productName)
             ->setMetaDescription($metaContent)
             ->setGenerateMeta(0);
+
         $product->save();
     }
 
     /**
-     * Gets the category name by ID
+     * Get category names of the product
      *
-     * @param string $categoryId ID of the category
+     * @param object $product product instance
+     *
+     * @return array of category names
+     */
+    protected function _getCategoryNames($product)
+    {
+        $productId = $product->getId();
+        $categories = $product->getCategoryIds();
+
+        $categoryArray = array();
+        foreach ($categories as $categoryId) {
+            $categoryArray[] = $this->_getCategoryName($categoryId);
+        }
+
+        return $categoryArray;
+    }
+
+    /**
+     * Gets the category name by category id and store id
+     *
+     * @param string $categoryId category id
      *
      * @return string name
      */
