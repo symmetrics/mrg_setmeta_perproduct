@@ -37,8 +37,8 @@ AUTHORS = {
 INFO = 'Meta Informationen mit Produkt-Info füllen'
 
 SUMMARY = '''
-Dieses Modul füllt die Meta Informationen eines Produktes mit 
-den Kategorienamen und dem Produktnamen füllen.
+    Dieses Modul füllt die Meta Informationen eines Produktes mit
+    den Kategorienamen und dem Produktnamen füllen.
 '''
 
 NOTES = '''
@@ -48,7 +48,7 @@ NOTES = '''
 # relations
 # =============================================================================
 REQUIRES = [
-    {'magento': '*', 'magento_enterprise': '*'}
+    {'magento': '*', 'magento_enterprise': '*'},
 ]
 
 EXCLUDES = {}

@@ -28,7 +28,7 @@
         <Symmetrics_SetMeta>
             <version>0.2.1</version>
         </Symmetrics_SetMeta>
-    </modules>    
+    </modules>
     <global>
         <models>
             <setmeta>

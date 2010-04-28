@@ -22,6 +22,7 @@
  * @link      http://www.symmetrics.de/
  */
 
+/* @var $installer Mage_Eav_Model_Entity_Setup */
 $installer = $this;
 $installer->startSetup();
 
@@ -35,7 +36,7 @@ $data = array(
     'is_global' => 0,
     'input' => 'boolean',
     'frontend_label' => 'Generate meta data',
-    'visible' => true,
+    'visible' => true, // useless for 1.4.0.0
     'required' => true,
     'user_defined' => true,
     'is_searchable' => false,
@@ -56,7 +57,7 @@ $attribute->loadByCode($attributeType, $code);
 if ($attribute->getId()) {
     $attribute->setDefaultValue($data['default_value']);
     $attribute->setIsGlobal($data['is_global']);
-    
+
     try {
         $attribute->save();
     } catch (Exception $e) {

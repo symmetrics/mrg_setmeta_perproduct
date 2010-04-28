@@ -37,9 +37,9 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
 {
     /**
      * Is called for mass editing products
-     * 
+     *
      * @param Varien_Event_Observer $observer event observer object
-     * 
+     *
      * @return void
      */
     public function massEdit($observer)
@@ -48,28 +48,28 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         $request = Mage::app()->getRequest();
         $storeId = $request->getParam('store');
         $attributesData = $request->getParam('attributes');
-        
+
         if (isset($attributesData['generate_meta']) && $attributesData['generate_meta'] == 1) {
             if (!is_array($productsIds)) {
                 $productsIds = array(0);
             }
-        
+
             $products = Mage::getResourceModel('catalog/product_collection')
                 ->setStoreId($storeId)
                 ->addIdFilter($productsIds)
                 ->load();
-                
+
             foreach ($products as $product) {
-                $this->generateMetaData($product->getId(), $storeId);
+                $this->_generateMetaData($product->getId(), $storeId);
             }
         }
     }
-    
+
     /**
-     * product is saved - update meta tags
-     * 
+     * Product is saved - update meta tags
+     *
      * @param Varien_Event_Observer $observer event observer object
-     * 
+     *
      * @return void
      */
     public function edit($observer)
@@ -77,7 +77,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         $request = Mage::app()->getRequest();
         $storeId = $request->getParam('store');
         $product = $observer->getEvent()->getProduct();
-        
+
         if (!$product instanceof Mage_Catalog_Model_Product || !$product->getId()) {
             throw new Exception('product not set');
         } else {
@@ -89,19 +89,19 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
             }
         }
         if ($product->getGenerateMeta() == 1) {
-            $this->generateMetaData($product->getId(), $storeId);
+            $this->_generateMetaData($product->getId(), $storeId);
         }
     }
-    
+
     /**
-     * load product and generate meta data
-     * 
+     * Load product, generate meta data and store it in the product
+     *
      * @param int $productId Product Id
      * @param int $storeId   Store Id
-     * 
+     *
      * @return void
      */
-    public function generateMetaData($productId, $storeId)
+    protected function _generateMetaData($productId, $storeId)
     {
         if (is_numeric($productId)) {
             $product = Mage::getModel('catalog/product')
@@ -110,39 +110,39 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         } else {
             $product = $productId;
         }
-        
+
         if (!$product instanceof Mage_Catalog_Model_Product || !$product->getId()) {
             throw new Exception('product couldn\'t be loaded.');
         }
-        
+
         $productId = $product->getId();
-        
+
         $categories = $product->getCategoryIds();
         // load category names
         $categoryArray = array();
-        
+
         foreach ($categories as $categoryId) {
             $categoryArray[] = $this->_getCategoryName($categoryId);
         }
-        
+
         $productName = $product->getName();
         // prepend product name
         array_unshift($categoryArray, $productName);
         $metaContent = implode(', ', $categoryArray);
-        
+
         $product->setMetaKeyword($metaContent)
             ->setMetaTitle($productName)
             ->setMetaDescription($metaContent)
             ->setGenerateMeta(0);
         $product->save();
     }
-    
+
     /**
      * Gets the category name by ID
-     * 
+     *
      * @param string $categoryId ID of the category
-     * 
-     * @return string
+     *
+     * @return string name
      */
     protected function _getCategoryName($categoryId)
     {
@@ -150,8 +150,8 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         $categoryObject = Mage::getModel('catalog/category')
             ->setStoreId($storeId)
             ->load($categoryId);
-            
         $categoryName = $categoryObject->getName();
+
         return $categoryName;
     }
 }
