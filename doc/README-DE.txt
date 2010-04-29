@@ -10,7 +10,7 @@ Außerdem muss es manuell in der Attributverwaltung übersetzt werden.
 Dieses Modul füllt die Meta-Daten eines Produktes automatisch mit dem 
 Produktnamen und den Kategorien. Diese Funktionalität wird durch die 
 Erstellung des neuen Attributs (Ja/Nein Dropdowns) ermöglicht. D.h. wenn 
-der Benutzer dieses Dropdown auf "ja" setzt, werden die Metadaten des Produkts 
+der Benutzer dieses Dropdown auf "Ja" setzt, werden die Metadaten des Produkts 
 automatish aus Produktnamen und Kategorienamen gelesen. Außerdem ist die 
 Multistore Umgebung berücksichtigt, nämlich, unterschiedliche "StoreViews" 
 können unterschiedliche Werte haben. Es gibt auch die Unterstützung für 
@@ -18,10 +18,10 @@ Massenbearbeitung.
 
 ** FUNCTIONALITY
 *** A: Fügt ein Produktattribut "Generate Meta Data" hinzu
-*** B: Wenn dieses Dropdown auf Ja steht, greift der observer und füllt den 
+*** B: Wenn dieses Dropdown auf "Ja" steht, greift der observer und füllt den 
         Metatitel mit dem Produktnamen und die Beschreibung und Keywords mit 
         einer Komma-Seperierten Liste aus Produktnamen und Kategorienamen.
-*** C: Auch wenn diese Dropdown bei einer Massenbearbeitung auf "ja" gesetzt 
+*** C: Auch wenn diese Dropdown bei einer Massenbearbeitung auf "Ja" gesetzt 
         wird, werden die Metadaten ausgefüllt.
 *** D: Auch Multistore Umgebungen werden berücksichtigt. Die Kategorie- und 
         Produktnamen werden dann entsprechend dem store view eingetragen.
@@ -56,21 +56,21 @@ Zur Zeit sind keine Probleme bekannt.
 	       (3) Das Feld "Generate Meta Data" (Dropdown) sollte auf "Ja" 
             stehen.
 	       (4) Wählen Sie "Save & Continue Edit".
-	       (5) Die Meta-Felder sollten nun mir den Kategorie und 
+	       (5) Die Meta-Felder sollten nun mit den Kategorie und 
             Namensinformationen gefüllt werden.
 	       (6) Ändern Sie den Produkt namen und/oder die Kategorien und 
-            stellen das Dropdown erneut auf "ja".
+            stellen das Dropdown erneut auf "Ja".
 	       (7) Die Meta Daten sollten sich entsprechend aktualisieren.
 	    2. (1) Wiederholen Sie die Schritte 1-5 in B.1, wählen Sie bei 
             Schritt 3 aber "nein" aus.
 	       (2) Bearbeiten Sie das zuletzt angelegte Produkt und stellen das 
-            Dropdown auf "ja".
+            Dropdown auf "Ja".
 	       (3) Nach dem Speichern sollten die Meta Daten ausgefüllt worden 
             sein.
 *** C:  1. (1) Wiederholen Sie die Schritte 1-5 im Testfall B mehrfach, 
             wählen Sie bei Schritt 3 aber "nein" aus.
            (2) Machen Sie eine Massen-Bearbeitung der Produkte und stellen 
-            das Dropdown auf "ja".
+            das Dropdown auf "Ja".
            (3) Prüfen Sie die Produkte einzeln, sie sollten jetzt alle die 
             entsprechenden Meta Daten haben.
 *** D:  1. Wiederholen Sie den Testfall B aber wählen Sie einen "StoreView" 
@@ -81,7 +81,7 @@ Zur Zeit sind keine Probleme bekannt.
             Sie "Save & Continue Edit".
 	       (3) Wechseln Sie den "StoreView" auf "English".
 	       (4) Ändern Sie den Namen des Produkts und stellen Sie das Dropdown 
-            erneut auf "ja".
+            erneut auf "Ja".
            (5) Wählen Sie "Save & Continue Edit".
            (6) Überprüfen Sie, ob die Metadaten entsprechend aktualisiert 
             wurden.
@@ -96,6 +96,6 @@ Zur Zeit sind keine Probleme bekannt.
 *** C:  Es ist kein sinnvoller Testfall bekannt
 *** D:  Die Produkte müssen bei einer "Mass Action" alle einzeln geladen 
          werden. Dies kann sich negativ auf die Performance auswirken. Wenn 
-         das Dropdown "Generate Meta Data" nicht auf "ja" steht, werden die 
+         das Dropdown "Generate Meta Data" nicht auf "Ja" steht, werden die 
          Produkte aber nicht einzeln geladen.
 
