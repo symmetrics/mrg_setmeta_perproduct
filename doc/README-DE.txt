@@ -70,7 +70,7 @@ Zur Zeit sind keine Probleme bekannt.
 *** C:  1. (1) Wiederholen Sie die Schritte 1-5 im Testfall B mehrfach, 
             wählen Sie bei Schritt 3 aber "nein" aus.
            (2) Machen Sie eine Massen-Bearbeitung der Produkte und stellen 
-            das Dropdown auf "Ja".
+            das Dropdown auf "Ja". Klicken Sie "Speichern".
            (3) Prüfen Sie die Produkte einzeln, sie sollten jetzt alle die 
             entsprechenden Meta Daten haben.
 *** D:  1. Wiederholen Sie den Testfall B aber wählen Sie einen "StoreView" 
@@ -88,7 +88,17 @@ Zur Zeit sind keine Probleme bekannt.
            (7) Wechseln Sie den "StoreView" auf "Standardwerte". Überprüfen 
             Sie, ob die Metadaten wieder die Standardwerte haben.
         2. Wiederholen Sie den Testfall C mit dem "StoreView" Auswahl, 
-            ähnlich wie im Punkt D.1
+            ähnlich wie im Punkt D.1. D.h.:
+           (1) Wiederholen Sie die Schritte 1-5 im Testfall B mehrfach, 
+            wählen Sie bei Schritt 3 aber "nein" aus.
+           (2) Wechseln Sie das "StoreView" auf "English" und ändern die 
+            Namen von ein paar Produkten in der Bearbeitung.
+           (3) Machen Sie eine Massen-Bearbeitung der Produkte im "StoreView" 
+            "English" und stellen das Dropdown auf "Ja". Klicken Sie 
+            "Speichern".
+           (4) Prüfen Sie die Produkte einzeln, sie sollten jetzt alle die 
+            entsprechenden Meta Daten haben. D.h. die Werte müssen mit 
+            der richtigen "StoreView" ("English") gelesen und gespeichert sein.
 	    
 ** STRESS
 *** A:  Es ist kein sinnvoller Testfall bekannt

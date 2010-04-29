@@ -206,8 +206,9 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         array_unshift($categoryArray, $productName);
         $metaContent = implode(', ', $categoryArray);
 
-        $product->setMetaKeyword($metaContent)
+        $product->setStoreId($this->_getStoreId())
             ->setMetaTitle($productName)
+            ->setMetaKeyword($metaContent)
             ->setMetaDescription($metaContent)
             ->setGenerateMeta(0);
 
