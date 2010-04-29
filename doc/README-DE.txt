@@ -44,11 +44,11 @@ Zur Zeit sind keine Probleme bekannt.
 * TESTCASES
 
 ** BASIC
-*** A:  1. Prüfen Sie, ob das vom Migrationsskript angelegte Attribut 
+*** A:  1. Prüfen Sie, ob in der Attributverwaltung das Attribut 
+            'generate_meta' auftaucht.
+        2. Prüfen Sie, ob das vom Migrationsskript angelegte Attribut 
             'generate_meta' im Attributset vorhanden ist. Es sollte dann 
             auftauchen, wenn man das Produkt bearbeitet.
-        2. Prüfen Sie, ob in der Attributverwaltung das Attribut 
-            'generate_meta' auftaucht.
 *** B:	1. (1) Legen Sie im Backend über Catalog->Add Product ein neues 
             Produkt an.
   	       (2) Geben Sie wenigstens die benötigten Attribute und eine 

@@ -88,12 +88,8 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
             throw new Exception('product not set');
         }
 
-        // have SKU in request?
-        if ($this->_getSku() !== false) {
-            // load product by SKU and store ID from request data
-            $product = $this->_loadProduct();
-        }
-        // otherwise just use the product we obtained as event argument
+        // load a new product instance, using SKU from request or product id from event
+        $product = $this->_getProduct($product->getId());
 
         // if we need to generate meta content, do so and update the product
         if ($product->getGenerateMeta() == 1) {
@@ -129,6 +125,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         // obtain collection of products by store id and product ids
         $products = Mage::getResourceModel('catalog/product_collection')
             ->setStoreId($this->_getStoreId())
+            ->addAttributeToSelect('name')
             ->addIdFilter($productsIds)
             ->load();
 
@@ -136,6 +133,29 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         foreach ($products as $product) {
             $this->_updateMetaData($product);
         }
+    }
+
+    /**
+     * Get product by loading a new one. If there is an SKU specified in request,
+     * then we use it, else we load product by supplied product id
+     *
+     * @param int $productId product id
+     *
+     * @return object product instance
+     */
+    protected function _getProduct($productId)
+    {
+        // have SKU in request?
+        $productSku = $this->_getSku();
+        if ($productSku !== false) {
+            // load product by SKU and store ID from request data
+            $product = $this->_loadProductBySku($productSku);
+        } else {
+            // otherwise just load it by supplied product id
+            $product = $this->_loadProductById($productId);
+        }
+
+        return $product;
     }
 
     /**
@@ -147,10 +167,25 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
      */
     protected function _loadProductBySku($sku)
     {
-        // Load product by sku and storeId
+        $productId = Mage::getSingleton('catalog/product')
+            ->getIdBySku($productParams['sku']);
+        $product = $this->_loadProductById($productId);
+
+        return $product;
+    }
+
+    /**
+     * Obtain product instance by product id and store id
+     *
+     * @param int $productId product id
+     *
+     * @return object product instance
+     */
+    protected function _loadProductById($productId)
+    {
         $product = Mage::getModel('catalog/product')
-            ->setStoreId($this->_getStoreId());
-        $product->load($product->getIdBySku($productParams['sku']));
+            ->setStoreId($this->_getStoreId())
+            ->load($productId);
 
         return $product;
     }
