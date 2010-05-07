@@ -6,7 +6,7 @@
 # =============================================================================
 NAME = 'symmetrics_module_setmeta_perproduct'
 
-TAGS = ('php', 'magento', 'symmetrics', 'module', 'meta', 'product')
+TAGS = ('php', 'magento', 'symmetrics', 'module', 'meta', 'product', 'mrg')
 
 LICENSE = 'AFL 3.0'
 
