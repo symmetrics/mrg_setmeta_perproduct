@@ -64,6 +64,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
     protected function _getSku()
     {
         $request = Mage::app()->getRequest();
+        $productParams = $request->getParam('product');
         if (isset($productParams['sku'])) {
             return $productParams['sku'];
         }
@@ -168,7 +169,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
     protected function _loadProductBySku($sku)
     {
         $productId = Mage::getSingleton('catalog/product')
-            ->getIdBySku($productParams['sku']);
+            ->getIdBySku($sku);
         $product = $this->_loadProductById($productId);
 
         return $product;
