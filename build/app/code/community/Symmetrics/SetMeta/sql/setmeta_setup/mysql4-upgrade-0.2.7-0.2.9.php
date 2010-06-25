@@ -38,10 +38,9 @@ try {
 } catch (Exception $exception) {
     $attributeGroupId = $installer->getDefaultAttributeGroupId($entityType, $attributeSetId);
 }
-
-$installer->addAttributeToSet($entityType, $attributeSetId, $attributeGroupId, $attributeId);
-
+try {
+    $installer->addAttributeToSet($entityType, $attributeSetId, $attributeGroupId, $attributeId);
+} catch (Exception $exception) {
+    // do nothing
+}
 $installer->endSetup();
-
-//EOF
-

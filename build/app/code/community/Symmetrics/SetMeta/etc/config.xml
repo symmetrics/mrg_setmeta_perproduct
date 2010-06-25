@@ -26,7 +26,7 @@
 <config>
     <modules>
         <Symmetrics_SetMeta>
-            <version>0.2.10</version>
+            <version>0.2.12</version>
         </Symmetrics_SetMeta>
     </modules>
     <global>
