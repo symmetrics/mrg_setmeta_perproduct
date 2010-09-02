@@ -101,11 +101,9 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
     /**
      * Is called for mass editing of products
      *
-     * @param Varien_Event_Observer $observer event observer object
-     *
      * @return void
      */
-    public function handleProductMassEdit($observer)
+    public function handleProductMassEdit()
     {
         // take product id list from session
         $productsIds = Mage::getSingleton('adminhtml/session')->getProductIds();
@@ -225,7 +223,6 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
      */
     protected function _getCategoryNames($product)
     {
-        $productId = $product->getId();
         $categories = $product->getCategoryIds();
 
         $categoryArray = array();
