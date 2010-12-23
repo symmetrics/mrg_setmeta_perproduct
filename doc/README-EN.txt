@@ -1,111 +1,101 @@
 * DOCUMENTATION
 
 ** INSTALLATION
-Extrahieren Sie den Inhalt dieses Archivs in Ihr Magento Verzeichnis
-Ggf. ist das Leeren/Auffrischen des Magento-Caches notwendig. ACHTUNG: Das 
-Attribut 'generate_meta' muss dem/einem Attributset hinzugefügt werden. 
-Außerdem muss es manuell in der Attributverwaltung übersetzt werden.
+Extract content of this archive to your Magento directory.
+It might be necessary to clear/refresh the Magento cache. ATTENTION:
+The 'generate_meta' attribute must be added to the/a attribute set.
+Besides, it must be manually transferred in the attribute management.
 
 ** USAGE
-Dieses Modul füllt die Meta-Daten eines Produktes automatisch mit dem 
-Produktnamen und den Kategorien. Diese Funktionalität wird durch die 
-Erstellung des neuen Attributs (Ja/Nein Dropdowns) ermöglicht. D.h. wenn 
-der Benutzer dieses Dropdown auf "Ja" setzt, werden die Metadaten des Produkts 
-automatisch aus Produktnamen und Kategorienamen gelesen. Außerdem ist die 
-Multistore-Umgebung berücksichtigt, unterschiedliche "StoreViews" 
-können unterschiedliche Werte haben. Es gibt auch die Unterstützung für 
-Massenbearbeitung.
+This module fills the meta-data of a product automatically with the
+product name and categories. This functionality is enabled through
+the creation of the new attribute (yes/no dropdowns). I.e. when the
+user sets this dropdown on "yes", the metadata of the product are 
+automatically read from the product names and category names. Besides,
+if the multistore-environment is taken into consideration, different
+"storeviews" can have different values. There is also a support for 
+mass editing.
 
 ** FUNCTIONALITY
-*** A: Fügt ein Produktattribut "Generate Meta Data" hinzu
-*** B: Wenn dieses Dropdown auf "Ja" steht, greift der observer und füllt den 
-        Metatitel mit dem Produktnamen, die Beschreibung und Keywords mit 
-        einer Komma seperierten Liste aus Produktnamen und Kategorienamen.
-*** C: Auch wenn dieses Dropdown bei einer Massenbearbeitung auf "Ja" gesetzt 
-        wird, werden die Metadaten ausgefüllt.
-*** D: Auch Multistore-Umgebungen werden berücksichtigt. Die Kategorie- und 
-        Produktnamen werden dann entsprechend dem store view eingetragen.
+*** A: Adds "Generate Meta Data"  product attribute.
+*** B: 	When this dropdown is set on "yes" the observer takes effect and
+	fills the meta title with the product name, descripton and keywords
+	with comma separated list of product names and category names. 
+*** C: 	Also when this dropdown is set on "yes" upon the mass editing,
+	the meta data are filled in.
+*** D: Also the multistore environments are taken into consideration. The 
+	category and product names are then entered according to the stove view.
 
 ** TECHNICAL
-Via Migrationsskript wird ein Produktattribut 'generate_meta' eingefügt. Es 
-ist ein Ja/Nein Dropdown. Es wird das Event 'catalog_product_save_after' 
-abgefangen, welches bei einer einfachen Produktspeicherung ausgelöst wird. 
-Hier wird geprüft, ob das Attribut des Produkts 'generate_meta' auf "Ja" 
-steht. Tut es das, werden die Metafelder entsprechend gefüllt.
-Für Mass Actions wird das Event 
+via migrations script a 'generate_meta' product attribute is added.
+This is a yes/no dropdown. 'catalog_product_save_after' event is
+caught, which is initiated upon a simple product saving.
+Here it is checked if the product attribute 'generate_meta' is
+set on "yes". If it does this, the metafields are filled
+respectively. For mass actions 
 'controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save'
-abgefangen. Aus der Session werden dann die Produkt-IDs geholt und geprüft, 
-ob das 'generate_meta' Dropdown auf "Ja" gestellt wurde. Dann wird für jede 
-ID das Produkt-Model geladen und die Werte gefüllt und gespeichert.
+event is caught. The product IDs are then taken from session and the
+check is made if 'generate_meta' dropdown is set on "yes". Then for each
+ID the product model is loaded and the values are filled and saved.
 
 ** PROBLEMS
-Zur Zeit sind keine Probleme bekannt.
+For the time being, no problems are known.
 
 * TESTCASES
 
 ** BASIC
-*** A:  1. Prüfen Sie, ob in der Attributverwaltung das Attribut 
-            'generate_meta' auftaucht.
-        2. Prüfen Sie, ob das vom Migrationsskript angelegte Attribut 
-            'generate_meta' im Attributset vorhanden ist. Es sollte dann 
-            auftauchen, wenn man das Produkt bearbeitet.
-*** B:	1. (1) Legen Sie im Backend über Catalog->Add Product ein neues 
-            Produkt an.
-  	       (2) Geben Sie wenigstens die benötigten Attribute und eine 
-            Kategorie an.
-	       (3) Das Feld "Generate Meta Data" (Dropdown) sollte auf "Ja" 
-            stehen.
-	       (4) Wählen Sie "Save & Continue Edit".
-	       (5) Die Meta-Felder sollten nun mit den Kategorie und 
-            Namensinformationen gefüllt werden.
-	       (6) Ändern Sie den Produktnamen und/oder die Kategorien und 
-            stellen Sie das Dropdown erneut auf "Ja".
-	       (7) Die Meta Daten sollten sich entsprechend aktualisieren.
-	    2. (1) Wiederholen Sie die Schritte 1-5 in B.1, wählen Sie bei 
-            Schritt 3 aber "nein" aus.
-	       (2) Bearbeiten Sie das zuletzt angelegte Produkt und stellen Sie das 
-            Dropdown auf "Ja".
-	       (3) Nach dem Speichern sollten die Meta Daten ausgefüllt
-            sein.
-*** C:  1. (1) Wiederholen Sie die Schritte 1-5 im Testfall B mehrfach, 
-            wählen Sie bei Schritt 3 aber "nein" aus.
-           (2) Machen Sie eine Massen-Bearbeitung der Produkte und stellen Sie 
-            das Dropdown auf "Ja". Klicken Sie "Speichern".
-           (3) Prüfen Sie die Produkte einzeln, sie sollten jetzt alle die 
-            entsprechenden Meta Daten haben.
-*** D:  1. Wiederholen Sie den Testfall B aber wählen Sie einen "StoreView" 
-            aus. D.h.:
-           (1) Gehen Sie im Back-End auf "Produkte verwalten". 
-           (2) Legen Sie ein neues Produkt an. Dabei Geben Sie wenigstens 
-            die benötigten Attribute, Webseite und eine Kategorie an. Wählen 
-            Sie "Save & Continue Edit".
-	       (3) Wechseln Sie den "StoreView" auf "English".
-	       (4) Ändern Sie den Namen des Produkts und stellen Sie das Dropdown 
-            erneut auf "Ja".
-           (5) Wählen Sie "Save & Continue Edit".
-           (6) Überprüfen Sie, ob die Metadaten entsprechend aktualisiert 
-            wurden.
-           (7) Wechseln Sie den "StoreView" auf "Standardwerte". Überprüfen 
-            Sie, ob die Metadaten wieder die Standardwerte haben.
-        2. Wiederholen Sie den Testfall C mit der "StoreView" Auswahl, 
-            ähnlich wie im Punkt D.1. D.h.:
-           (1) Wiederholen Sie die Schritte 1-5 im Testfall B mehrfach, 
-            wählen Sie bei Schritt 3 aber "nein" aus.
-           (2) Wechseln Sie das "StoreView" auf "English" und ändern Sie die 
-            Namen von ein paar Produkten in der Bearbeitung.
-           (3) Machen Sie eine Massen-Bearbeitung der Produkte im "StoreView" 
-            "English" und stellen Sie das Dropdown auf "Ja". Klicken Sie 
-            "Speichern".
-           (4) Prüfen Sie die Produkte einzeln, sie sollten jetzt alle die 
-            entsprechenden Meta Daten haben. D.h. die Werte müssen mit 
-            der richtigen "StoreView" ("English") gelesen und gespeichert sein.
-	    
+*** A:  1. Check if 'generate_meta' attribute appears in the 
+	   attribute management.
+        2. Check if 'generate_meta' attribute created by the migrations
+	   script is available in the attribute set. It should then appear
+	   when one edits the product.
+*** B: 	1. 	(1) Create a new product in backend via Catalog->Add Product
+			(2) Specify at least the necessary attributes and a category.
+			(3) The "Generate Meta Data" field (dropdown) should be set on "yes".
+			(4) Select "Save & Continue Edit".
+			(5) The meta-fields should now be filled with the category and name  
+            information.
+			(6) Change the product names and/or categories and set the dropdown 
+			on "Yes" again.
+			(7) The meta data should be updated respectively.
+		2. 	(1) Repeat steps 1-5 in B.1, but in step 3 select "no".
+			(2) Edit the last created product and set the dropdown on "yes".
+			(3) After saving the meta data should be filled.
+*** C:  1. 	(1) Repeat steps 1-5 in test case B several times, but select "no", 
+             in step 3.
+			(2) Make a mass-editing of products and set the dropdown
+			on "yes". Click "save". 
+			(3) Check the products separately, now they all should
+            have appropriate meta data.
+*** D:  1. Repeat the test case B but select a "Storeveiw". I.e.:
+			(1) Go in backend to "Manage products".
+			(2) Create a new product. When doing so, specify at least the 
+			necessary attributes, web site and a category. Select
+			"Save & Continue Edit".
+			(3) Change the "Storeview" to "English".
+			(4) Change the the product name and set the dropdown on
+			"yes" again.
+			(5) Select "Save & Continue Edit".
+			(6) Check if the meta data were updated respectively.
+			(7) Change the "StoreView" to "Default values". Check 
+            if meta data have the default values again.
+        2. Repeat the test case C with the "StoreView" selection,
+			similary as in item D. 1. I.e.:
+			(1) Repeat steps 1-5 in test case B several times, but in 
+			step 3 select "no".
+			(2) Change the "StoreView" to "English" and change names of a 
+			couple of products in the editing.
+			(3) Make a mass editing of the products in "StoreView"
+			"English" and set the dropdown on "yes". Click "Save".
+			(4) Check the products separately, they all now should 
+			have the appropriate meta data. I.e. the values must be read and 
+			saved with correct "StoreView" ("English").
+    
 ** STRESS
-*** A:  Es ist kein sinnvoller Testfall bekannt
-*** B:  Es ist kein sinnvoller Testfall bekannt
-*** C:  Es ist kein sinnvoller Testfall bekannt
-*** D:  Die Produkte müssen bei einer "Mass Action" alle einzeln geladen 
-         werden. Dies kann sich negativ auf die Performance auswirken. Wenn 
-         das Dropdown "Generate Meta Data" nicht auf "Ja" steht, werden die 
-         Produkte aber nicht einzeln geladen.
-
+*** A:  No meaningful test case is known
+*** B:  No meaningful test case is known
+*** C:  No meaningful test case is known
+*** D:  Upon "Mass action" the products must all be loaded
+        separately. This can negatively affect the performance. When 
+		the dropdown "Generate Meta Data" is not set on "yes",
+		the products are not loaded separtely.
