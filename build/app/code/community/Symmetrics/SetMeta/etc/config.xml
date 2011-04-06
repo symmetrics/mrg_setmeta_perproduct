@@ -35,6 +35,11 @@
                 <class>Symmetrics_SetMeta_Model</class>
             </setmeta>
         </models>
+        <helpers>
+            <setmeta>
+                <class>Symmetrics_SetMeta_Helper</class>
+            </setmeta>
+        </helpers>
         <events>
             <catalog_product_save_after>
                 <observers>
