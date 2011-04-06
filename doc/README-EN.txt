@@ -27,7 +27,7 @@ mass editing.
 	category and product names are then entered according to the stove view.
 
 ** TECHNICAL
-via migrations script a 'generate_meta' product attribute is added.
+Via migrations script a 'generate_meta' product attribute is added.
 This is a yes/no dropdown. 'catalog_product_save_after' event is
 caught, which is initiated upon a simple product saving.
 Here it is checked if the product attribute 'generate_meta' is
