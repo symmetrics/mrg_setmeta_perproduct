@@ -21,9 +21,7 @@ mass editing.
 *** B: 	When this dropdown is set on "yes" the observer takes effect and
 	fills the meta title with the product name, descripton and keywords
 	with comma separated list of product names and category names. 
-*** C: 	Also when this dropdown is set on "yes" upon the mass editing,
-	the meta data are filled in.
-*** D: Also the multistore environments are taken into consideration. The 
+*** C: Also the multistore environments are taken into consideration. The 
 	category and product names are then entered according to the stove view.
 
 ** TECHNICAL
@@ -39,7 +37,7 @@ check is made if 'generate_meta' dropdown is set on "yes". Then for each
 ID the product model is loaded and the values are filled and saved.
 
 ** PROBLEMS
-For the time being, no problems are known.
+Meta generation via mass action was removed/disabled because it doesn't work with 1.5 anymore.
 
 * TESTCASES
 
@@ -61,13 +59,7 @@ For the time being, no problems are known.
 		2. 	(1) Repeat steps 1-5 in B.1, but in step 3 select "no".
 			(2) Edit the last created product and set the dropdown on "yes".
 			(3) After saving the meta data should be filled.
-*** C:  1. 	(1) Repeat steps 1-5 in test case B several times, but select "no", 
-             in step 3.
-			(2) Make a mass-editing of products and set the dropdown
-			on "yes". Click "save". 
-			(3) Check the products separately, now they all should
-            have appropriate meta data.
-*** D:  1. Repeat the test case B but select a "Storeveiw". I.e.:
+*** C:  1. Repeat the test case B but select a "Storeveiw". I.e.:
 			(1) Go in backend to "Manage products".
 			(2) Create a new product. When doing so, specify at least the 
 			necessary attributes, web site and a category. Select
@@ -79,23 +71,8 @@ For the time being, no problems are known.
 			(6) Check if the meta data were updated respectively.
 			(7) Change the "StoreView" to "Default values". Check 
             if meta data have the default values again.
-        2. Repeat the test case C with the "StoreView" selection,
-			similary as in item D. 1. I.e.:
-			(1) Repeat steps 1-5 in test case B several times, but in 
-			step 3 select "no".
-			(2) Change the "StoreView" to "English" and change names of a 
-			couple of products in the editing.
-			(3) Make a mass editing of the products in "StoreView"
-			"English" and set the dropdown on "yes". Click "Save".
-			(4) Check the products separately, they all now should 
-			have the appropriate meta data. I.e. the values must be read and 
-			saved with correct "StoreView" ("English").
     
 ** STRESS
 *** A:  No meaningful test case is known
 *** B:  No meaningful test case is known
 *** C:  No meaningful test case is known
-*** D:  Upon "Mass action" the products must all be loaded
-        separately. This can negatively affect the performance. When 
-		the dropdown "Generate Meta Data" is not set on "yes",
-		the products are not loaded separtely.
