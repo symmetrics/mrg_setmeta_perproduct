@@ -135,7 +135,6 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function updateMetaData($product)
     {
-        var_dump($product->getData());die();
         $productName = $product->getName();
         $categoryArray = $this->getCategoryNames($product);
 

@@ -26,7 +26,7 @@
 <config>
     <modules>
         <Symmetrics_SetMeta>
-            <version>0.2.14</version>
+            <version>0.2.16</version>
         </Symmetrics_SetMeta>
     </modules>
     <global>
@@ -50,7 +50,9 @@
                     </symmetrics_setmeta_model_observer>
                 </observers>
             </catalog_product_save_after>
-            <controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
+            <!-- Eventfor mass editing products. Disabled, doesn't work since CE 1.5. -->
+            <!--
+             <controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
                 <observers>
                     <symmetrics_setmeta_model_observer>
                         <type>singleton</type>
@@ -59,6 +61,7 @@
                     </symmetrics_setmeta_model_observer>
                 </observers>
             </controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
+            -->
         </events>
         <resources>
             <setmeta_setup>
