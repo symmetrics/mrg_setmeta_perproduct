@@ -129,7 +129,7 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Load product, generate meta data and store it in the product.
      *
-     * @param Mage_Catalog_Model_Product Product instance.
+     * @param Mage_Catalog_Model_Product $product Product instance.
      *
      * @return void
      */
@@ -153,7 +153,7 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get category names of the product
      *
-     * @param Mage_Catalog_Model_Product Product instance.
+     * @param Mage_Catalog_Model_Product $product Product instance.
      *
      * @return array of category names
      */
