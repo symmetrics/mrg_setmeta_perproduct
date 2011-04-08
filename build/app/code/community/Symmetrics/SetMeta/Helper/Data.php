@@ -57,7 +57,7 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get SKU from request.
      *
-     * @return string SKU
+     * @return boolean|string SKU or false.
      */
     public function getSku()
     {
@@ -75,9 +75,9 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
      * Get product by loading a new one. If there is an SKU specified in request,
      * then we use it, else we load product by supplied product id.
      *
-     * @param int $productId Product id
+     * @param int $productId Product id.
      *
-     * @return object product instance
+     * @return Mage_Catalog_Model_Product Product instance.
      */
     public function getProduct($productId)
     {
@@ -97,9 +97,9 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Obtain product instance by SKU and store id
      *
-     * @param string $sku SKU
+     * @param string $sku Product SKU.
      *
-     * @return object product instance
+     * @return Mage_Catalog_Model_Product Product instance.
      */
     public function loadProductBySku($sku)
     {
@@ -113,9 +113,9 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Obtain product instance by product id and store id
      *
-     * @param int $productId product id
+     * @param int $productId Product ID.
      *
-     * @return object product instance
+     * @return Mage_Catalog_Model_Product Product instance.
      */
     public function loadProductById($productId)
     {
@@ -127,9 +127,9 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Load product, generate meta data and store it in the product
+     * Load product, generate meta data and store it in the product.
      *
-     * @param object $product product instance
+     * @param Mage_Catalog_Model_Product Product instance.
      *
      * @return void
      */
@@ -153,7 +153,7 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get category names of the product
      *
-     * @param object $product product instance
+     * @param Mage_Catalog_Model_Product Product instance.
      *
      * @return array of category names
      */

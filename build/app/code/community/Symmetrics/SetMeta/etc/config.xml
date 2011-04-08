@@ -50,7 +50,7 @@
                     </symmetrics_setmeta_model_observer>
                 </observers>
             </catalog_product_save_after>
-            <!-- Eventfor mass editing products. Disabled, doesn't work since CE 1.5. -->
+            <!-- Event for mass editing products. Disabled, doesn't work since CE 1.5. -->
             <!--
              <controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save>
                 <observers>
