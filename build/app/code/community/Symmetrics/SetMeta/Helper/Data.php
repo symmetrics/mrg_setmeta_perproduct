@@ -141,7 +141,6 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
         // compute meta content by prepending product name
         array_unshift($categoryArray, $productName);
         $metaContent = implode(', ', $categoryArray);
-
         $product->setMetaTitle($productName)
             ->setMetaKeyword($metaContent)
             ->setMetaDescription($metaContent)

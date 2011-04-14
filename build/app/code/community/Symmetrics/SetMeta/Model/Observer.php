@@ -54,12 +54,14 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
     {
         $helper = $this->_getHelper();
         $product = $observer->getEvent()->getProduct();
-
+        
         if (!$product instanceof Mage_Catalog_Model_Product
             || !$product->getId()
         ) {
             throw new Exception('Product not set.');
         }
+
+        $product = Mage::getModel('catalog/product')->load($product->getId());
         
         if ($product->getGenerateMeta() != '1') {
             return;
