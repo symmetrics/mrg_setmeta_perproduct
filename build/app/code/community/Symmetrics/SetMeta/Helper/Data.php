@@ -185,4 +185,20 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
 
         return $categoryName;
     }
+    
+    /**
+     * Check if product is saved first time.
+     *
+     * @return boolean
+     */
+    public function isNewCreated() 
+    {
+        $refererUrl = Mage::app()->getRequest()->getServer('HTTP_REFERER');
+        //check referer url
+        if (strpos($refererUrl, 'catalog_product/new/')) {
+            return true;
+        }
+
+        return false;
+    }
 }
