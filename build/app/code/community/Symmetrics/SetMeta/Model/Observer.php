@@ -81,8 +81,6 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
      * This code isn't used anymore, it doesn't work this way since Mangeto 1.5.
      * Feel free to adapt this to your needs.
      *
-     * @param Varien_Event_Observer $observer Event observer instance.
-     *
      * @return void
      */
     public function handleProductMassEdit()
