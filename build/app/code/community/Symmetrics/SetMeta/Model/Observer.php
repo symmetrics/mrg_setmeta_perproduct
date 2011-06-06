@@ -85,7 +85,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
      *
      * @return void
      */
-    public function handleProductMassEdit($observer)
+    public function handleProductMassEdit()
     {
         $helper = $this->_getHelper();
         // Take product id list from session.
