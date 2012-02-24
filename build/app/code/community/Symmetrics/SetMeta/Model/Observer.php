@@ -63,7 +63,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         // If product is just created, load product model
         // before modify (cause of duplicate entry error 
         // since 1.4.2.0)
-        if ($helper->isNewCreated()) {
+        if ($product->isObjectNew()) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId($helper->getStoreId())
                 ->load($product->getId());
