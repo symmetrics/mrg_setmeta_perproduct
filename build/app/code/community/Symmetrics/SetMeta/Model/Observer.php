@@ -60,10 +60,11 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
         ) {
             throw new Exception('Product not set.');
         }
+
         // If product is just created, load product model
-        // before modify (cause of duplicate entry error 
+        // before modify (cause of duplicate entry error
         // since 1.4.2.0)
-        if ($helper->isNewCreated()) {
+        if ($product->isObjectNew()) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId($helper->getStoreId())
                 ->load($product->getId());
@@ -108,7 +109,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
             ->addAttributeToSelect('name')
             ->addIdFilter($productsIds)
             ->load();
-        
+
         // update meta data for all of them
         foreach ($products as $product) {
             $product = Mage::getModel('catalog/product');
