@@ -36,6 +36,7 @@
  * @author    Yauhen Yakimovich <yy@symmetrics.de>
  * @author    Andreas Timm <at@symmetrics.de>
  * @author    Toni Stache <ts@symmetrics.de>
+ * @author    Torsten Walluhn <tw@symmetrics.de>
  * @copyright 2010-2012 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -46,7 +47,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
      * @var Symmetrics_SetMeta_Helper_Data $_helper Cached helper object.
      */
     protected $_helper;
-    
+
     /**
      * Update meta tags on product save.
      *
@@ -54,26 +55,19 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
      *
      * @return void
      */
-    public function handleProductSaveAfter($observer)
+    public function handleProductSaveBefore($observer)
     {
         $helper = $this->_getHelper();
         $product = $observer->getEvent()->getProduct();
 
         if (!$product instanceof Mage_Catalog_Model_Product
-            || !$product->getId()
+            /* || !$product->getId() */
         ) {
             throw new Exception('Product not set.');
         }
         if ($product->getGenerateMeta() != '1') {
             return;
         }
-
-        // If product is just created, load product model
-        // before modify (cause of duplicate entry error 
-        // since 1.4.2.0)
-        $product = Mage::getModel('catalog/product')
-            ->setStoreId($helper->getStoreId())
-            ->load($product->getId());
 
         $helper->updateMetaData($product);
     }
@@ -111,7 +105,7 @@ class Symmetrics_SetMeta_Model_Observer extends Varien_Object
             ->addAttributeToSelect('name')
             ->addIdFilter($productsIds)
             ->load();
-        
+
         // update meta data for all of them
         foreach ($products as $product) {
             $product = Mage::getModel('catalog/product');

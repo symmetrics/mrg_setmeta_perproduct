@@ -28,7 +28,8 @@
  * @package   Symmetrics_SetMeta
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Eric Reiche <er@symmetrics.de>
- * @copyright 2011 symmetrics gmbh
+ * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @copyright 2011-2012 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -145,8 +146,6 @@ class Symmetrics_SetMeta_Helper_Data extends Mage_Core_Helper_Abstract
             ->setMetaKeyword($metaContent)
             ->setMetaDescription($metaContent)
             ->setGenerateMeta(0);
-
-        $product->save();
     }
 
     /**
