@@ -1,0 +1,7 @@
+build/app/code/community/Symmetrics/SetMeta/etc/config.xml app/code/community/Symmetrics/SetMeta/etc/config.xml
+build/app/code/community/Symmetrics/SetMeta/Helper/Data.php app/code/community/Symmetrics/SetMeta/Helper/Data.php
+build/app/code/community/Symmetrics/SetMeta/Model/Observer.php app/code/community/Symmetrics/SetMeta/Model/Observer.php
+build/app/code/community/Symmetrics/SetMeta/sql/setmeta_setup/mysql4-install-0.2.0.php app/code/community/Symmetrics/SetMeta/sql/setmeta_setup/mysql4-install-0.2.0.php
+build/app/code/community/Symmetrics/SetMeta/sql/setmeta_setup/mysql4-upgrade-0.2.7-0.2.9.php app/code/community/Symmetrics/SetMeta/sql/setmeta_setup/mysql4-upgrade-0.2.7-0.2.9.php
+build/app/etc/modules/Symmetrics_SetMeta.xml app/etc/modules/Symmetrics_SetMeta.xml
+build/app/locale/de_DE/Symmetrics_SetMeta.csv app/locale/de_DE/Symmetrics_SetMeta.csv
